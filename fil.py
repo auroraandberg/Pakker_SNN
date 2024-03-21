@@ -1,0 +1,2 @@
+def funksjone():
+pass
