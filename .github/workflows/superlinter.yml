@@ -1,5 +1,4 @@
 ---
-
 name: Super-Linter
 
 on: push
@@ -9,12 +8,12 @@ jobs:
     name: Lint code base
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
         with:
           node-version: '20'
-
-      - name: Checout code
+          
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Run Super-Linter
