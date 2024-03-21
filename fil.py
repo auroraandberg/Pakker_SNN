@@ -1,2 +1,2 @@
 def funksjone():
-pass
+    pass
