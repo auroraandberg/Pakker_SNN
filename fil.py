@@ -1,2 +1,2 @@
-def funksjone():
-pass
+def funksjon():
+    pass
