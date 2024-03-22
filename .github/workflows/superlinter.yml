@@ -1,20 +1,23 @@
 ---
-name: Super-Linter
+name: Super-Linter #the name of the workflow
 
-on: push
+on: #here we specify that the trigger which makes the workflow run is when a pull req. is created and pushed (to main)
+  pull_request:
+    branches:
+      - main
 
-jobs:
-  super-lint:
+jobs: #these are the actual commands that run in the flow. These can be multiple jobs run in parallell or jobs that are dependent on one another.
+  super-lint: #this job is called super-lint
     name: Lint code base
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #super-lint runs on ubuntu-latest
     steps:
+      - name: Checkout code #here we check out the repository, using a pre-made action from the actions marketplace. 
+        uses: actions/checkout@v2
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v2
         with:
           node-version: '20'
-          
-      - name: Checkout code
-        uses: actions/checkout@v2
 
       - name: Run Super-Linter
         uses: github/super-linter@v4
