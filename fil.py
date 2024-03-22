@@ -1,4 +1,5 @@
 def funksjon():
-    return 'hei'
+    return "hei"
+
 
 funksjon()
