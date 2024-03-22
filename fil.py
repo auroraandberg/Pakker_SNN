@@ -1,2 +1,5 @@
 def funksjon():
-    pass
+    return "hei"
+
+
+funksjon()
