@@ -1,8 +1,11 @@
 ---
 name: Super-Linter #the name of the workflow
 
-on: #here we specify that the trigger which makes the workflow run is when a pull req. is created and pushed (to main)
+on: #here we specify that the trigger which makes the workflow run is when a pull req. is created and pushed (to main) and when pushed.
   pull_request:
+    branches:
+      - main
+  push:
     branches:
       - main
 
@@ -11,17 +14,17 @@ jobs: #these are the actual commands that run in the flow. These can be multiple
     name: Lint code base
     runs-on: ubuntu-latest #super-lint runs on ubuntu-latest
     steps:
-      - name: Checkout code #here we check out the repository, using a pre-made action from the actions marketplace. 
+      - name: Checkout code #here we check out the repository's code onto the runner. Often the first step, as subsequent steps often depend on having access to the code in your repository. 
         uses: actions/checkout@v2
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2
+      - name: Set up Python 3.8 #name of the step
+        uses: actions/setup-python@v2 #tells the workflow to use the setup-python action at version v2. Setting up the python enviroment in the runner with a specified version of python
         with:
-          node-version: '20'
+          python-version: 3.12 #use python version 3.12
 
       - name: Run Super-Linter
-        uses: github/super-linter@v4
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+        uses: github/super-linter@v4 #tells the workflow to use the super-linter action at version v4. 
+        env: #define enviroment variables for this step
+          DEFAULT_BRANCH: main #sets the default_branch enviroment to main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} #sets the github_token enviroment variable to the value of the github_token secret. The Super-linter needs this to be able to communicate the results back to your github repository
+                                                    #without this you would have to manually look at the workflow run logs to see the results of the linting. v
